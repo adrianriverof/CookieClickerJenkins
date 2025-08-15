@@ -17,7 +17,9 @@ pipeline {
 		stage('Test') {
 			steps {
 				sh """
-					
+					killall Xvfb 2>/dev/null || true
+                    rm -f /tmp/.X1-lock
+                    
 					Xvfb :1 -screen 0 1024x768x24 &
 					export DISPLAY=:1
 					
