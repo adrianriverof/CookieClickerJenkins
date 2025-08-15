@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh """
                     mkdir -p "CI"
-                    "${UNITY_PATH}" -runTests -projectPath "${WORKSPACE}%" -exit -batchmode -testResults "${WORKSPACE}/CI/results.xml" -testPlatform EditMode
+                    "${UNITY_PATH}" -runTests -projectPath "${WORKSPACE}" -exit -batchmode -testResults "${WORKSPACE}/CI/results.xml" -testPlatform EditMode
                 """
             }
         }
