@@ -51,7 +51,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh """
-                    "${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode -logfile "${WORKSPACE}/CI/build.log
+                    "${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode -logfile "${WORKSPACE}/CI/build.log"
                 """
                 archiveArtifacts artifacts: 'CI/build.log', fingerprint: true
                 archiveArtifacts artifacts: 'Build/**/*', fingerprint: true
