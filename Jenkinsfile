@@ -51,7 +51,10 @@ pipeline {
         stage('Build') {
             steps {
                 sh """
+                	Xvfb :1000 -screen 0 1024x768x24 &
+					export DISPLAY=:1000
                     "${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode -logfile "${WORKSPACE}/CI/build.log"
+                	killall Xvfb
                 """
                 archiveArtifacts artifacts: 'CI/build.log', fingerprint: true
                 archiveArtifacts artifacts: 'Build/**/*', fingerprint: true
