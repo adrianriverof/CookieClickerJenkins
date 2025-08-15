@@ -2,31 +2,31 @@ pipeline {
     agent any
     
     environment {
-        UNITY_PATH = "C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.4f1\\Editor\\Unity.exe" // CAMBIAD ESTO
-        REPO_URL = "https://github.com/Gamedev-Crafters/CookieClickerJenkins.git"
+        UNITY_PATH = "/home/adrian/Unity-2022.3.7f1/Editor/Unity" // CAMBIAD ESTO
+        REPO_URL = "https://github.com/adrianriverof/CookieClickerJenkins.git"
     }
     
     stages {
         stage('Checkout') {
             steps {
                 cleanWs()
-                bat "git clone ${REPO_URL} ."
+                sh "git clone ${REPO_URL} ."
             }
         }
         
         stage('Test') {
             steps {
-                bat """
-                    if not exist "CI" mkdir "CI"
-                    "${UNITY_PATH}" -runTests -projectPath "%WORKSPACE%" -exit -batchmode -testResults "%WORKSPACE%\\CI\\results.xml" -testPlatform EditMode
+                sh """
+                    mkdir -p "CI"
+                    "${UNITY_PATH}" -runTests -projectPath "${WORKSPACE}%" -exit -batchmode -testResults "${WORKSPACE}/CI/results.xml" -testPlatform EditMode
                 """
             }
         }
         
         stage('Build') {
             steps {
-                bat """
-                    "${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "%WORKSPACE%" -quit -batchmode
+                sh """
+                    "${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode
                 """
                 archiveArtifacts artifacts: 'Build/**/*', fingerprint: true
             }
