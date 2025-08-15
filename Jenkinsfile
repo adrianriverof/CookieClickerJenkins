@@ -4,6 +4,7 @@ pipeline {
     environment {
         UNITY_PATH = "/home/adrian/Unity-2022.3.7f1/Editor/Unity" // CAMBIAD ESTO
         REPO_URL = "https://github.com/adrianriverof/CookieClickerJenkins.git"
+        UNITY_CACHE_DIR = "/var/lib/jenkins/UnityCache"
     }
     
     stages {
@@ -51,6 +52,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh """
+                	export UNITY_CACHE_DIR=${UNITY_CACHE_DIR}
                 	Xvfb :1000 -screen 0 1024x768x24 &
 					export DISPLAY=:1000
                     "${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode -logfile "${WORKSPACE}/CI/build.log"
