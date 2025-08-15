@@ -19,12 +19,14 @@ pipeline {
 				sh """
 					mkdir -p "${WORKSPACE}/CI" && \
 					"${UNITY_PATH}" \
-						-runTests \
-						-projectPath "${WORKSPACE}" \
-						-exit -batchmode \
-						-testResults "${WORKSPACE}/CI/results.xml" \
-						-testPlatform EditMode
+                        -runTests \
+                        -projectPath "${WORKSPACE}" \
+                        -exit -batchmode \
+                        -testResults "${WORKSPACE}/CI/results.xml" \
+                        -testPlatform EditMode \
+                        -logfile "${WORKSPACE}/CI/unity.log"
 				"""
+				archiveArtifacts artifacts: 'CI/*.log', fingerprint: true
 			}
 		}
         
@@ -34,6 +36,7 @@ pipeline {
                     "${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode
                 """
                 archiveArtifacts artifacts: 'Build/**/*', fingerprint: true
+                
             }
         }
     }
