@@ -66,7 +66,7 @@ pipeline {
 					sleep 3
 		
 					
-					"${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode
+					"${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode -logfile /dev/stdout
 		
 					
 					killall Xvfb
