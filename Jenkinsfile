@@ -52,26 +52,17 @@ pipeline {
         stage('Build') {
             steps {
                 sh """
-					
-					
-		
-					
 					export UNITY_CACHE_DIR=/var/lib/jenkins/UnityCache
 					export UNITY_GI_CACHE_PATH=/var/lib/jenkins/UnityCache/GiCache
 					mkdir -p "\$UNITY_GI_CACHE_PATH"
 					
-					
-					
 					export DISPLAY=:1000
 		
-					
 					Xvfb :1000 -screen 0 1024x768x24 &
 					sleep 3
 		
-					
 					"${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode -logfile /dev/stdout
 		
-					
 					killall Xvfb
 				"""
 				archiveArtifacts artifacts: 'Build/**/*', fingerprint: true
