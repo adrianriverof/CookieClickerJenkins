@@ -10,7 +10,7 @@ public static class SimpleBuildScript
         PlayerSettings.bundleVersion = "1.0.0";
         PlayerSettings.productName = "CookieClicker";
         
-        string buildPath = Path.Combine(Directory.GetCurrentDirectory(), "Build", $"CookieClicker.exe");
+        string buildPath = Path.Combine(Directory.GetCurrentDirectory(), "Build", $"CookieClicker.x86_64");
         Directory.CreateDirectory(Path.GetDirectoryName(buildPath));
         
         string[] scenes = GetScenes();
@@ -18,7 +18,7 @@ public static class SimpleBuildScript
         {
             Debug.LogError("No scenes found!");
             EditorApplication.Exit(1);
-            return;
+            return;         
         }
         
         BuildOptions options = BuildOptions.None;
@@ -27,7 +27,7 @@ public static class SimpleBuildScript
         {
             scenes = scenes,
             locationPathName = buildPath,
-            target = BuildTarget.StandaloneWindows64,
+            target = BuildTarget.StandaloneLinux64,
             options = options
         };
         
