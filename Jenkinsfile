@@ -14,14 +14,19 @@ pipeline {
             }
         }
         
-        stage('Test') {
-            steps {
-                sh """
-                    mkdir -p "CI" 
-                    "${UNITY_PATH}" -runTests -projectPath "${WORKSPACE}" -exit -batchmode -testResults "${WORKSPACE}/CI/results.xml" -testPlatform EditMode
-                """
-            }
-        }
+		stage('Test') {
+			steps {
+				sh """
+					mkdir -p "${WORKSPACE}/CI" && \
+					"${UNITY_PATH}" \
+						-runTests \
+						-projectPath "${WORKSPACE}" \
+						-exit -batchmode \
+						-testResults "${WORKSPACE}/CI/results.xml" \
+						-testPlatform EditMode
+				"""
+			}
+		}
         
         stage('Build') {
             steps {
