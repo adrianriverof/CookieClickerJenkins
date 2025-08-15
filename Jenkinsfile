@@ -52,17 +52,27 @@ pipeline {
         stage('Build') {
             steps {
                 sh """
-                	export UNITY_CACHE_DIR=${UNITY_CACHE_DIR}
-                	export DISPLAY=:1000
-                	Xvfb :1000 -screen 0 1024x768x24 &
-                	sleep 3
 					
-                    "${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode  -logfile /dev/stdout
-                	killall Xvfb
-                """
-                archiveArtifacts artifacts: 'CI/build.log', fingerprint: true
-                archiveArtifacts artifacts: 'Build/**/*', fingerprint: true
-                
+					mkdir -p "${UNITY_CACHE_DIR}/GiCache"
+					chmod -R 777 "${UNITY_CACHE_DIR}/GiCache"
+		
+					
+					export UNITY_CACHE_DIR=${UNITY_CACHE_DIR}
+					export UNITY_GICACHE_PATH=${UNITY_CACHE_DIR}/GiCache
+					export DISPLAY=:1000
+		
+					
+					Xvfb :1000 -screen 0 1024x768x24 &
+					sleep 3
+		
+					
+					"${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode
+		
+					
+					killall Xvfb
+				"""
+				archiveArtifacts artifacts: 'Build/**/*', fingerprint: true
+
             }
         }
     }
