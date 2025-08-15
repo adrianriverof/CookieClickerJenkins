@@ -17,19 +17,14 @@ pipeline {
 		stage('Get License') {
             steps {
                 sh """
-                if [ -f /home/adrian/.local/share/unity3d/Unity/Unity_lic.ulf ]; then
-                    echo "Licencia encontrada ✅"
-                else
-                    echo "ERROR: No se encuentra el archivo de licencia"
-                    exit 1
-                fi
-        
-                chmod 644 /home/adrian/.local/share/unity3d/Unity/Unity_lic.ulf
-                ls -l /home/adrian/.local/share/unity3d/Unity/
+                mkdir -p $HOME/.local/share/unity3d/Unity/
+                
+                cp /var/lib/jenkins/Unity_lic.ulf $HOME/.local/share/unity3d/Unity/Unity_lic.ulf
+                
+                ls -l $HOME/.local/share/unity3d/Unity/
                 """
             }
         }
-	
 	
 		stage('Test') {
 			steps {
