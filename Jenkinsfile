@@ -53,8 +53,10 @@ pipeline {
             steps {
                 sh """
                 	export UNITY_CACHE_DIR=${UNITY_CACHE_DIR}
+                	export DISPLAY=:1000
                 	Xvfb :1000 -screen 0 1024x768x24 &
-					export DISPLAY=:1000
+                	sleep 3
+					
                     "${UNITY_PATH}" -executeMethod SimpleBuildScript.Build -projectPath "${WORKSPACE}" -quit -batchmode # -logfile "${WORKSPACE}/CI/build.log"
                 	killall Xvfb
                 """
