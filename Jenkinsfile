@@ -53,12 +53,15 @@ pipeline {
             steps {
                 sh """
 					
-					mkdir -p "${UNITY_CACHE_DIR}/GiCache"
-					chmod -R 777 "${UNITY_CACHE_DIR}/GiCache"
+					
 		
 					
-					export UNITY_CACHE_DIR=${UNITY_CACHE_DIR}
-					export UNITY_GICACHE_PATH=${UNITY_CACHE_DIR}/GiCache
+					export UNITY_CACHE_DIR=/var/lib/jenkins/UnityCache
+					export UNITY_GI_CACHE_PATH=/var/lib/jenkins/UnityCache/GiCache
+					mkdir -p "\$UNITY_GI_CACHE_PATH"
+					
+					
+					
 					export DISPLAY=:1000
 		
 					
