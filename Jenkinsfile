@@ -17,6 +17,10 @@ pipeline {
 		stage('Test') {
 			steps {
 				sh """
+					
+					Xvfb :1 -screen 0 1024x768x24 &
+					export DISPLAY=:1
+					
 					mkdir -p "${WORKSPACE}/CI" && \
 					"${UNITY_PATH}" \
                         -runTests \
@@ -25,6 +29,8 @@ pipeline {
                         -testResults "${WORKSPACE}/CI/results.xml" \
                         -testPlatform EditMode \
                         -logfile "${WORKSPACE}/CI/unity.log"
+                    
+                    killall Xvfb
 				"""
 				archiveArtifacts artifacts: 'CI/*.log', fingerprint: true
 			}
