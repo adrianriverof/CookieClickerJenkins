@@ -10,8 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                cleanWs()
-                sh "git clone ${REPO_URL} ."
+                sh "git pull ${REPO_URL}"
             }
         }
 	
