@@ -71,7 +71,7 @@ pipeline {
         stage('Deploy'){
         	steps{
         		sh """
-        			butler push "${pwd()}/Bulid" adrianriverof/testing-deploying-with-jenkins:linux
+        			butler push "${pwd()}/Build" adrianriverof/testing-deploying-with-jenkins:linux
         		"""
         	}
         }
