@@ -23,7 +23,7 @@ namespace CookieClickerCode.Tests.EditMode
         {
             var cookieClicker = CookieClicker.CreateEmpty();
             var sut = new Autoclicker(cookieClicker);        
-            cookieClicker.ClicksPerSecond = 2;
+            cookieClicker.ClicksPerSecond = 0;
             
             var base_date = new DateTime();
             sut.AccumulateTime(base_date);
