@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 cleanWs()
-                sh "git pull ${REPO_URL} ."
+                sh "git pull ${REPO_URL}"
             }
         }
 	
